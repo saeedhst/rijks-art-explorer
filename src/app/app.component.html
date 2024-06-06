@@ -1,0 +1,21 @@
+<mat-sidenav-container class="sidenav-container" (backdropClick)="toggleDrawer()">
+  <mat-sidenav mode="over" [fixedInViewport]="true" [opened]="drawerState">
+    <app-drawer/>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    <mat-toolbar>
+      <a [routerLink]="['']">RIJKS MUSEUM</a>
+        <div class="progress-bar-container">
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        </div>
+    </mat-toolbar>
+
+    <div class="main-content">
+
+      <router-outlet></router-outlet>
+
+    </div>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

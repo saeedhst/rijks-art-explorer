@@ -1,0 +1,60 @@
+<div class="museum-title">
+  RIJKS MUSEUM
+</div>
+
+<form class="form-container" [formGroup]="form">
+
+  <div class="toggle-group-section">
+    <div>Culture:</div>
+    <mat-button-toggle-group formControlName="culture" name="culture">
+      <mat-button-toggle value="en">EN</mat-button-toggle>
+      <mat-button-toggle value="nl">NL</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div>
+    <mat-checkbox formControlName="imgonly">Results only with image</mat-checkbox>
+    <br>
+    <mat-checkbox formControlName="toppieces">Top Piece</mat-checkbox>
+  </div>
+
+  <mat-form-field class="multi-select">
+    <mat-label>Artist</mat-label>
+    <mat-select formControlName="involvedMaker" multiple>
+      @for (item of artistList; track item) {
+        <mat-option [value]="item.name">{{ item.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="multi-select">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type" multiple>
+      @for (item of typeList; track item) {
+        <mat-option [value]="item.name">{{ item.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="multi-select">
+    <mat-label>Material</mat-label>
+    <mat-select formControlName="material" multiple>
+      @for (item of materialList; track item) {
+        <mat-option [value]="item.name">{{ item.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="multi-select">
+    <mat-label>Technique</mat-label>
+    <mat-select formControlName="technique" multiple>
+      @for (item of techniqueList; track item) {
+        <mat-option [value]="item.name">{{ item.name }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+</form>
+<div class="submit-button">
+  <button (click)="submit()" mat-flat-button color="primary">Search</button>
+</div>

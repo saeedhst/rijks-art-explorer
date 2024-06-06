@@ -1,0 +1,43 @@
+<div class="widget-container">
+  <div class="search-container">
+
+    <div class="search">
+
+      <div class="input">
+        <mat-form-field class="input">
+          <mat-label>Search</mat-label>
+          <input (keyup.enter)="search()" matInput placeholder="Starry Night, ..." [(ngModel)]="query">
+        </mat-form-field>
+      </div>
+
+      <div class="search-button">
+        <button (click)="search()" mat-flat-button color="primary">Search</button>
+      </div>
+
+    </div>
+
+    <div>
+      <button class="advance-search-btn" (click)="toggleDrawer()"
+              mat-stroked-button
+              color="primary">Advanced Search
+      </button>
+    </div>
+  </div>
+
+  <div class="chip-container">
+    <div class="chip-title" *ngIf="displayFilters.length">Active Filters:</div>
+
+    <mat-chip-set>
+      <ng-container *ngFor="let item of displayFilters">
+        <mat-chip-option selected (click)="removeFilter(item)" color="accent" class="chip-item">
+                    <span class="chip-content">
+                        {{ item.value }}
+                    </span>
+        </mat-chip-option>
+      </ng-container>
+    </mat-chip-set>
+
+  </div>
+
+</div>
+

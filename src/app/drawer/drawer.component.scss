@@ -1,0 +1,33 @@
+.museum-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: cornflowerblue;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  height: 100px
+}
+
+.form-container {
+  margin: 5px 15px 15px 15px
+}
+
+.toggle-group-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px
+}
+
+.multi-select {
+  width: 100%;
+}
+
+.submit-button {
+  text-align: center
+}
+
+button {
+  width: 90%;
+}

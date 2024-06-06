@@ -1,0 +1,21 @@
+<app-search-widget></app-search-widget>
+
+<app-not-found *ngIf="!searchResult?.length && !loading"/>
+
+<div class="items-grid">
+
+  <ng-container *ngFor="let item of searchResult">
+
+    <a *ngIf="item.permitDownload; else noDownload" [routerLink]="['..', 'details', item.objectNumber]">
+      <app-search-item (click)="openSnackBar(item)" [artObject]="item"></app-search-item>
+    </a>
+
+    <ng-template #noDownload>
+      <app-search-item (click)="openSnackBar(item)" [artObject]="item"></app-search-item>
+    </ng-template>
+
+  </ng-container>
+
+  <app-search-item (click)="loadMore()" *ngIf="searchResult?.length"></app-search-item>
+</div>
+
