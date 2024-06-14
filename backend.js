@@ -4,49 +4,41 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
-const port = 3010;
+
+const port = process.env.PORT || 3010;
 const key = 'G0hqHXiN';
+const baseURL = "https://www.rijksmuseum.nl";
+const cache = {};
 
-app.get('/search', async (req, res) => {
-    const path = req.originalUrl.replace('/search?', '?').replace(/%20/g, '+');
-    const target = `https://www.rijksmuseum.nl/api/en/collection` + path;
-    return await handleRequest(req, res, target, {key});
-})
+axios.defaults.baseURL = baseURL;
 
-app.get('/terms', async (req, res) => {
-    const {query} = req;
-    const target = 'https://www.rijksmuseum.nl/en/search/advanced/terms';
-    return await handleRequest(req, res, target, query);
-})
-app.get('/collection/:id', async (req, res) => {
-    const target = 'https://www.rijksmuseum.nl/api/en/collection/' + req.params.id;
-    return await handleRequest(req, res, target, {key});
-})
-
-async function handleRequest(req, res, target, params) {
-    const {originalUrl} = req;
-    let result, status, targetUrl;
-    try {
-        const response = await axios.get(target, {params});
-        targetUrl = axios.getUri(response.config);
-        result = response.data;
-        status = response.status;
-    } catch (e) {
-        status = e.response.status;
-        result = {
-            ...e.response.data,
-            extra: {
-                error: e,
-                resHeaders: e.response.headers,
-            },
-        };
+app.get('*', async (req, res) => {
+  try {
+    const cacheKey = req.originalUrl;
+    const targetUrl = req.originalUrl.replace(/%20/g, '+');
+    if (cache[cacheKey] && cache[cacheKey].expires >= Date.now()) {
+      const response = cache[cacheKey].data;
+      console.log('\x1b[36m Returning cached result for\x1b[0m ' + cacheKey);
+      return res.status(response.status).json(response.data);
     }
-    console.log(`\nHandling Request: ----------------------------------`);
-    console.log(`\x1b[33m ${req.method} \x1b[0m` + ` Path:   ` + originalUrl);
-    console.log(`\x1b[33m     \x1b[0m` + ' Source: ' + originalUrl.replace(req.path, '').split('&').join(' '));
-    console.log(`\x1b[33m     \x1b[0m` + ' Target: ' + (new URL(targetUrl).search).split('&').join(' '));
-    console.log(`\x1b[33m ${status} \x1b[0m` + ' Final:  ' + targetUrl);
+    const response = await axios.get(targetUrl, {params: {key}});
+    cache[cacheKey] = {
+      data: response,
+      expires: Date.now() + 60 * 60 * 1000,
+    }
+    console.log('\x1b[33m Relaying request to: \x1b[0m ' + axios.getUri(response.config));
+    return res.status(response.status).json(response.data);
+  } catch (e) {
+    const status = e?.response?.status || 500;
+    const result = {
+      ...e?.response?.data,
+      extra: {
+        error: e,
+        resHeaders: e?.response?.headers,
+      },
+    };
     return res.status(status).json(result);
-}
+  }
+});
 
-app.listen(port, () => console.log(`Listening on ${port}`));
+app.listen(port, () => console.log(`Listening on 3010...`));
