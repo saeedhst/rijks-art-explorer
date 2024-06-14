@@ -1,12 +1,12 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {BehaviorSubject, tap} from "rxjs";
 import {RootObject} from "./detail.model";
+import {environment} from "../../../environments/environment";
 
-const baseUrl = 'http://localhost:3010';
-const termsApi = baseUrl + '/terms';
-const searchApi = baseUrl + '/search';
-const detailsApi = baseUrl + '/collection'
+const baseUrl = environment.API_URL;
+const termsApi = baseUrl + '/en/search/advanced/terms';
+const searchApi = baseUrl + '/api/en/collection';
+const detailsApi = baseUrl + '/api/en/collection';
 
 interface ISearchQuery {
   q: string;
