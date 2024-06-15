@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ElementRef, ViewChild} from "@angular/core";
 import {RijksService} from "../_services/rijks.service";
-import {RootObject} from "../_services/detail.model";
+import {RootObject} from "../_models/detail.model";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
