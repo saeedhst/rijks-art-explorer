@@ -51,7 +51,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: build-artifacts
-
+      - run: ls -l
+      - run: ls -l dist
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
