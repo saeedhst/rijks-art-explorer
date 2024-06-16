@@ -1,0 +1,76 @@
+<div class="container">
+
+    <img #image class="image-header" [src]="data?.artObject?.webImage?.url" alt="">
+
+    <div class="details">
+
+        <div class="header">
+            <div>
+                <div class="title">{{ data?.artObject?.title }}</div>
+                <div class="title">{{ data?.artObject?.principalOrFirstMaker }}</div>
+
+                <div class="subtitle">
+                    {{ data?.artObject?.physicalMedium + ' ' + data?.artObject?.subTitle }}
+                </div>
+                <div class="subtitle">{{ data?.artObject?.label?.makerLine }}</div>
+            </div>
+
+            <div class="makers">
+                <a [routerLink]="['', 'search']" [queryParams]="{involvedMaker: item.name}" class="subtitle"
+                   *ngFor="let item of data?.artObject?.principalMakers">
+                    <button mat-button>
+                        <span class="text" style="max-width: 100px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{ item.name }}</span>
+                        <span class="material-icons md-18">find_in_page</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="description">
+            <div *ngIf="!(data?.artObject?.plaqueDescriptionEnglish || data?.artObject?.label?.description)">
+                No information available.
+            </div>
+            <div style="text-align: justify">{{ data?.artObject?.plaqueDescriptionEnglish }}</div>
+            <div style="text-align: justify">{{ data?.artObject?.label?.description }}</div>
+        </div>
+        <ng-container *ngIf="data?.artObject?.materials?.length">
+            <div class="tag-title">
+                Materials:
+            </div>
+            <div>
+                <mat-chip *ngFor="let item of data?.artObject?.materials" [color]="'primary'">{{ item }}</mat-chip>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="data?.artObject?.objectTypes?.length">
+            <div class="tag-title">
+                Art Type:
+            </div>
+            <div>
+                <mat-chip *ngFor="let item of data?.artObject?.objectTypes" [color]="'primary'">{{ item }}</mat-chip>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="data?.artObject?.techniques?.length">
+            <div class="tag-title">
+                Techniques:
+            </div>
+            <div>
+                <mat-chip *ngFor="let item of data?.artObject?.techniques" [color]="'primary'">{{ item }}</mat-chip>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="similar?.length">
+            <div class="tag-title">Similar Color:</div>
+            <div class="similar-container">
+                <a [routerLink]="['..', item.objectNumber]" class="img" *ngFor="let item of similar">
+                    <img [src]="item.webImage.url.replace('=s0', '=w150')">
+                </a>
+            </div>
+        </ng-container>
+
+    </div>
+
+</div>
+
+<div *ngIf="loading" class="spinner-container">
+    <mat-spinner></mat-spinner>
+</div>
