@@ -18,10 +18,10 @@ jobs:
         run: npm install
       - name: Prepare
         run: |
-          echo "export const environment = {" > src/environments/environment.prod.ts
-          echo "  production: true," >> src/environments/environment.prod.ts
-          echo "  API_URL: '$API_URL'" >> src/environments/environment.prod.ts
-          echo "};" >> src/environments/environment.prod.ts
+          echo "export const environment = {" > environments/environment.prod.ts
+          echo "  production: true," >> environments/environment.prod.ts
+          echo "  API_URL: '$API_URL'" >> environments/environment.prod.ts
+          echo "};" >> environments/environment.prod.ts
         env:
           API_URL: ${{ vars.API_URL }}
       - name: Build
