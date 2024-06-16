@@ -53,6 +53,7 @@ jobs:
           name: build-artifacts
       - run: ls -l
       - run: ls -l dist
+      - run: pwd
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
