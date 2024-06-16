@@ -6,7 +6,7 @@ export const httpInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, ne
 
   const baseUrl = environment.API_URL;
   const updatedReq = req.clone({
-    url: baseUrl + req.urlWithParams,
-  })
+    url: baseUrl + req.url,
+  });
   return next(updatedReq);
 }
