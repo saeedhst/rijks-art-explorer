@@ -12,8 +12,21 @@
   margin-left: 5px
 }
 
+@media (max-width: 999px) {
+  .advance-search-btn {
+    margin-top: 20px;
+  }
+  .search-container {
+    flex-direction: column;
+  }
+  .chip-container{
+    width: 95%!important;
+    justify-content: space-between !important;
+  }
+}
+
 .chip-title {
-  margin-right: 5px
+  margin-right: 5px;
 }
 
 .chip-item {

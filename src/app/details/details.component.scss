@@ -6,6 +6,34 @@
   padding: 50px;
 }
 
+.details{
+  width: 40%
+}
+
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+    margin: auto;
+  }
+  .image-header{
+    margin: auto;
+  }
+  .details{
+    margin: auto;
+    width: 100%;
+    padding-top: 30px;
+  }
+  .image-header{
+    width: 65% !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .header{
+    flex-direction: column;
+  }
+}
+
 .image-header {
   width: 40%;
   border-radius: 20px;

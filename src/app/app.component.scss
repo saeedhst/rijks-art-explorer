@@ -13,6 +13,11 @@
   margin-top: 64px;
 }
 
+@media (max-width: 600px) {
+  .main-content {
+    margin-top: 56px;
+  }
+}
 .progress-bar-container {
   display: flex;
   height: 10px;
