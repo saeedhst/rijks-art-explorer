@@ -13,10 +13,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-
+        
       - name: Install dependencies 
         run: npm install
 
@@ -27,6 +24,9 @@ jobs:
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
 
       - name: Prepare environment variables
         run: |
